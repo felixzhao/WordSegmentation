@@ -1,0 +1,17 @@
+源码功能说明:    
+    语料库初步处理:  MaxBuildDict.py
+    语料库进一步处理: MaxBuildDictModify.py
+    分词处理: MaxWordSegmentation.py
+    分词单元测试: MaxWordSegmentationTest.py
+    (__init__.py 与 __pycache__文件夹 是配置运行需要)
+    
+源码运行说明: (如果已经存在dict.txt文件, 可直接运行'python MaxWordSegmentation.py'进行分词)
+    系统环境要求: 安装Python(本人安装的是python 3.3), 并配置环境变量.
+    1. 进入命令行, 并跳转到文件目录下
+    2. 在命令行输入'python MaxBuildDict.py' , 2秒后会产生经过初步处理的语料库dict_tmp.txt
+    3. 在命令行输入'python MaxBuildDictModify.py' , 2秒后会产生最终精细处理的语料库dict.txt
+    4. 在命令行输入'python MaxWordSegmentation.py' , 会提示输入句子, 任意输入一段话, 即可快速分词(以/分开).
+    (在命令行输入'python MaxWordSegmentationTest.py' 可进行单元测试, 写代码时测试使用. 可以删除)
+    
+    
+注意: 请不要移动源码文件与txt文件的路径, 否则运行是会出错的.
