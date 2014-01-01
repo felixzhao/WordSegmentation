@@ -1,0 +1,13 @@
+import string
+import re
+
+f = open(filename,'r').read()
+maxLen = 1
+strList=f.split("\n")
+
+#寻找最大词长
+maxLen = 0
+for i in strList:
+    if len(i)>maxLen:
+        maxLen=len(i)
+
