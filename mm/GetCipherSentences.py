@@ -1,4 +1,4 @@
-
+﻿
 def GetSentences(filePath, unk, match_word, maxLen):
   sentences = []
   lines = open(filePath,'r').readlines()
@@ -15,5 +15,14 @@ def GetSentences(filePath, unk, match_word, maxLen):
   return sentences
 
 if __name__ == '__main__':
-  cipher_text_path = 'corpus\src-67percent\test-unknown.txt'
+  cipher_text_path = 'corpus/src-67percent/test-unknown.txt'
+  unk = '<unk>590'
+  match_word = '紧'
+  maxLen = 16
+  sentences = GetSentences(cipher_text_path, unk, match_word, maxLen)
+  
+  outfile = open('out/sentences.txt','w')
+  
+  for sen in sentences:
+    print >> outfile, sen
   
