@@ -1,0 +1,31 @@
+u观了
+u观
+u
+观了《
+观了
+match dict : 观了 True
+cur_score before check:  2
+cur_score after check:  0
+《刘少
+《刘
+《
+刘少奇
+match dict : 刘少奇 True
+cur_score before check:  3
+cur_score after check:  3
+u辉业
+u辉
+u
+辉业u
+辉业
+辉
+业u展
+业u
+业
+u展览
+u展
+u
+展览
+match dict : 展览 True
+cur_score before check:  2
+cur_score after check:  0
