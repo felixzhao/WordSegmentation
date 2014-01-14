@@ -50,12 +50,9 @@ def get_top_n_score(cur_score_list, beam_width): ## [( score, #d)], #bw
     unks = unknown word flag in test_text
     cands = { unk: cand[] }
 '''
-def get_top_score( test_text, unks, cands):
+def get_top_score( test_text, unks, cands, dict, sentence_split_len = 6, seg_max_width = 4, beam_width = 5):
   docs = []
   score = {}
-  sentence_split_len = 6
-  seg_max_width = 4
-  beam_width = 5
   for r in unks:
     cur_max_score = 0
     k = cands[r]
