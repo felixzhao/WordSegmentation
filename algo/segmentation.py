@@ -36,6 +36,20 @@ def segmentation(dict, maxLen, sentence_source, match_word):
           word=word[0:len(word)-1]
   return score
 
+'''
+    word segmetation algo.
+    return max score.
+'''
+def get_score(sentences, dict, seg_max_width, k):
+  result = 0 
+  
+  for sen in sentences:
+    cur_score = segmentation(dict, seg_max_width, sen, k)
+    if cur_score > result: 
+      result = cur_score
+  
+  return result
+  
 if __name__ == '__main__':
   sentence = 'u 观 了 《 刘 少 奇 u 辉 业 u 展 览'
   match_word = '奇'
