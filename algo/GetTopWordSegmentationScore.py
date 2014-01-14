@@ -52,11 +52,12 @@ def get_top_n_score(cur_score_list, beam_width): ## [( score, #d)], #bw
 '''
 def get_top_score( test_text, unks, cands):
   docs = []
-  score = 0
+  score = {}
   sentence_split_len = 6
   seg_max_width = 4
   beam_width = 5
   for r in unks:
+    cur_max_score = 0
     k = cands[r]
     docs.append(update_unk(test_text, r, k))
     for u in unks:
@@ -70,8 +71,9 @@ def get_top_score( test_text, unks, cands):
         sentences = get_sentence(d_u, k, sentence_split_len)
         cur_score_list.append( (get_score(sentences, dict, seg_max_width, k),d)) ## [( score, #d)]
       
-      top_n_docs, cur_max_score = get_top_n_score(cur_score_list, beam_width) ## [( score, #d)], #
-      if cur_max_score > score: score = cur_max_score
+      top_n_docs, cur_score = get_top_n_score(cur_score_list, beam_width) ## [( score, #d)], #
+      if cur_score > cur_max_score: cur_max_score = cur_score
       docs = []
       docs = top_n_docs
-  return score
+    score[r] = cur_max_score
+  return score  
