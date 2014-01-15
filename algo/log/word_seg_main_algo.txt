@@ -1,0 +1,5 @@
+ doc of u type:  <type 'list'>
+ the first line of doc u:  这 <unk>147 个 <unk>192 <unk>231 <unk>18 仅 决 定 <unk>9 外 资 <unk>18 可 能 在 <unk>891 期 内 迅 速 流 向 我 国 ， 从 而 <unk>45 为 引 起 金 融 动 荡 的 重 <unk>30 因 素 ； 也 说 明 外 资 <unk>348 <unk>12 我 国 经 济 <unk>21 展 的 重 <unk>30 <unk>849 充 ， 在 长 达 ２ ０ 年 的 经 济 <unk>78 速 <unk>198 长 <unk>99 <unk>216 中 ， 并 没 有 <unk>33 <unk>75 <unk>99 度 依 赖 外 资 的 倾 向 大 
+
+ k :  大
+ len :  6

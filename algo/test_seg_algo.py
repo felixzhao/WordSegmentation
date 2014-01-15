@@ -5,9 +5,9 @@ def load_unks_orgword(word_map_path):
   result = [] ## tuple list : (unk, word)
   lines = open(word_map_path, 'r').readlines()
   for line in lines:
-    if len(line) > 1:
-      term = line.split(' ')
-      result.append((term[1],term[0]))
+    term = line.split(' ')
+    if len(term) > 1:
+      result.append((term[1][:-1],term[0]))
   return result
 
 def load_unks(word_map_path):
@@ -33,13 +33,30 @@ def GetDataDict(path):
                 dict[w[0].strip(' ')] = v
     return dict
 
+def GetWordDict(path):
+  result = []
+  
+  word_list = open(path,'r').readlines()
+  result = [x[:-1] for x in word_list]
+  
+  return result
+
+  '''
+def GetTestText(path):
+  result = []
+  lines = open(test_text_path, 'r').readlines()
+  for line in lines:
+    result.append(line)
+  return result
+  '''
+  
 if __name__ == '__main__':
   test_text_path = '../corpus/src-33percent/test-unknown.txt'
   unk_path = '../corpus/src-33percent/word-map.txt'
   bms_sf_result_path = '../result_bms_sf/updated_out.bw10.ns0.sfw0.type33.txt'
+  word_dict_path = '../Dict/_Dict-SC2TC.Sort.V1_Simple_Chinese_UTF8.txt'
   out_path = 'out/top_score_bms_sf_10_0_0_33_ws_.txt'
   
-  test_text = open(test_text_path, 'r').readlines()
   out_file = open(out_path, 'w')
   
   top_score = {}
@@ -52,6 +69,9 @@ if __name__ == '__main__':
   
   unks = load_unks(unk_path)
   cands = GetDataDict(bms_sf_result_path)
+  dict = GetWordDict(word_dict_path)
+  test_text = open(test_text_path, 'r').readlines()
+  
   top_score = get_top_score( test_text, unks, cands, dict, sentence_split_len, seg_max_width, beam_width)
   
   for k in top_score.keys():

@@ -1,49 +1,10 @@
 
 from segmentation import get_score
-
-'''
-    replace unk with cand in test text
-'''
-def update_unk(test_text, k, c):
-  return test_text.replace(k + ' ', c + ' ')
-
-'''
-    get sub sentence list in doc,
-    which n word before k and n word after k.
-    the n is the len.
-'''
-def get_sentence(d_u, k, len):
-  result = [] ## a list of string, each word split by space
-
-  for line in d_u:
-## get unk index
-    unk_index_list = [item for item in range(len(line)) if line[item] == k]
-    if len(unk_index_list) > 0:
-      for index in unk_index_list:
-        terms = line[index - maxLen : index + maxLen + 1]        
-        if terms != '' and len(terms) > 0:
-          if terms[-1] == '\n':
-            terms = terms[:-1]
-## Add to terms
-          result.append(' '.join(terms))
+from ref.update import update_unk
+from ref.get_sentence import get_sentence
+from ref.get_top_n_score import get_top_n_score
   
-  return result
-
-'''
-    sort word segmetation result,
-    based on score.
-    return top n doc, n is beam_width.
-    return first score as max score.
-'''
-def get_top_n_score(cur_score_list, beam_width): ## [( score, #d)], #bw
-  top_n_docs = [] ## string list, each element is a doc
-  cur_max_score = 0 ## a interge number, max score 
-  
-  top_n = sorted(cur_score_list, key = lambda x:x[0],reverse=True)[:width]
-  top_n_docs = list(set([x[1] for x in top_n]))
-  cur_max_score = max(cur_score_list,key=lambda item:item[0])[0]
-  
-  return top_n_docs, cur_max_score
+log = open('log/word_seg_main_algo.txt','w')
   
 '''
     test_text = string
@@ -55,22 +16,36 @@ def get_top_score( test_text, unks, cands, dict, sentence_split_len = 6, seg_max
   score = {}
   for r in unks:
     cur_max_score = 0
-    k = cands[r]
-    docs.append(update_unk(test_text, r, k))
-    for u in unks:
-      if u == r: continue ## ignore k
+    r_cands = cands[r]
+    for k in r_cands:
       
-      cur_score_list = [] ## [( score, #d)]
+      ## log
+      print >> log, ' doc list type: ', type(docs)
+      print >> log, ' type of test text: ', type(test_text)
+      print >> log, ' r : ', r
+      print >> log, ' k : ', k
+      print >> log, ' first doc type : ', type([x.replace(r + ' ', k + ' ') for x in test_text])
       
-      for d in xrange(len(docs):
-        d_u = update_unk(docs[d], u, cands[u])
-        sentences = []
-        sentences = get_sentence(d_u, k, sentence_split_len)
-        cur_score_list.append( (get_score(sentences, dict, seg_max_width, k),d)) ## [( score, #d)]
       
-      top_n_docs, cur_score = get_top_n_score(cur_score_list, beam_width) ## [( score, #d)], #
-      if cur_score > cur_max_score: cur_max_score = cur_score
-      docs = []
-      docs = top_n_docs
-    score[r] = cur_max_score
+      docs.append( [x.replace(r + ' ', k + ' ') for x in test_text]) #update_unk(test_text, r, k))
+      
+      for u in unks:
+        if u == r: continue ## ignore k
+        
+        u_cands = cands[u]
+        for c in u_cands:
+        
+          cur_score_list = [] ## [( score, #d)]
+          
+          for d in xrange(len(docs)):
+            d_u = [x.replace(u + ' ', c + ' ') for x in docs[d]] #update_unk(docs[d], u, cands[u])
+            sentences = []
+            sentences = get_sentence(d_u, k, sentence_split_len)
+            cur_score_list.append( (get_score(sentences, dict, seg_max_width, k),d)) ## [( score, #d)]
+          
+          top_n_docs, cur_score = get_top_n_score(cur_score_list, beam_width) ## [( score, #d)], #
+          if cur_score > cur_max_score: cur_max_score = cur_score
+          docs = []
+          docs = top_n_docs
+        score[r] = cur_max_score
   return score  
