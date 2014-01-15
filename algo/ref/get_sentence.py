@@ -1,4 +1,6 @@
 
+import numpy as np
+
 log = open('log/word_seg_main_algo.txt','w')
 
 '''
@@ -17,16 +19,20 @@ def get_sentence(d_u, k, len):
   
   for line in d_u:
   ## try
-    li = line.split()
-    index = li.index(k)
-    s = index - maxLen
-    e = index + maxLen + 1
-    if index - maxLen < 1:
-      s = 0
-    terms = line[s: e]
+    word_list = np.array(line.split())
+    index_list = np.where(word_list == k)[0] # word_list.index(k)
+    for index in index_list:
+      s = index - len
+      e = index + len + 1
+      if index - len < 1:
+        s = 0
+      terms = line[s: e]
+      result.append(' '.join(terms))
     
   ## end try
-  
+  return result
+
+'''  
 ## get unk index
     unk_index_list = [item for item in range(len(line)) if line[item] == k]
     if len(unk_index_list) > 0:
@@ -37,5 +43,6 @@ def get_sentence(d_u, k, len):
             terms = terms[:-1]
 ## Add to terms
           result.append(' '.join(terms))
-  
+
   return result
+'''
