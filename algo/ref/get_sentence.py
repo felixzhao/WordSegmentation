@@ -8,16 +8,17 @@ log = open('log/log_get_sentence.txt','w')
 '''
     get sub sentence list in doc,
     which n word before k and n word after k.
-    the n is the len.
+    the n is the length.
 '''
-def get_sentence(d_u, k, len):
+def get_sentence(d_u, k, length):
   result = [] ## a list of string, each word split by space
 
+  length *= 3
   ## log
   print >> log, ' doc of u type: ', type(d_u)
   print >> log, ' the first line of doc u: ', d_u[0]
   print >> log, ' k : ', k
-  print >> log, ' len : ', len
+  print >> log, ' length : ', length
   ## end log
   
   for l in d_u:
@@ -28,12 +29,26 @@ def get_sentence(d_u, k, len):
     print >> log, line
     ## end log
   ## try
-    word_list = np.array(line.split())
-    index_list = np.where(word_list == k)[0] # word_list.index(k)
+    #word_list = np.array(line.split())
+    #index_list = np.where(word_list == k)[0] # word_list.index(k)
+    
+    ## get k position list
+    index_list = []
+    word_list = line.split(' ')
+    for i in xrange(len(word_list)):
+      if word_list[i] == k:
+        index_list.append(i)
+    
+    ## log
+    print >> log, ' index list : '
     for index in index_list:
-      s = index - len
-      e = index + len + 1
-      if index - len < 1:
+      print >> log, str(index), ','
+    ## end log
+      
+    for index in index_list:
+      s = index - length
+      e = index + length + 1
+      if index - length < 1:
         s = 0
       terms = line[s: e]
       ## log
