@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*- 
 
 import numpy as np
+import re
 
-log = open('log/word_seg_main_algo.txt','w')
+log = open('log/log_get_sentence.txt','w')
 
 '''
     get sub sentence list in doc,
@@ -12,12 +14,19 @@ def get_sentence(d_u, k, len):
   result = [] ## a list of string, each word split by space
 
   ## log
-  print >> log, ' doc of u type: ', type(d_u)
-  print >> log, ' the first line of doc u: ', d_u[0]
-  print >> log, ' k : ', k
+  print >> log, ' doc of u type: ', type(d_u),
+  print >> log, ' the first line of doc u: ', d_u[0],
+  print >> log, ' k : ', k,
   print >> log, ' len : ', len
+  ## end log
   
-  for line in d_u:
+  for l in d_u:
+    ## replace unk flag to 'U', which no process in this turn
+    line = re.sub('<unk>[\d ,]* ', 'U ', l)
+    ## log
+    print >> log, ' *** sentence which updated unk. *** '
+    print >> log, line
+    ## end log
   ## try
     word_list = np.array(line.split())
     index_list = np.where(word_list == k)[0] # word_list.index(k)

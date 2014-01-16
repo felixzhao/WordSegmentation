@@ -1,5 +1,6 @@
-﻿
-logfile = open('log/segmentation.txt','w')
+﻿# -*- coding: utf-8 -*- 
+
+log = open('log/log_segmentation.txt','w')
 
 def get_word_segmentation_score(word, match_word):
   cur_score = len(word)
@@ -23,15 +24,16 @@ def segmentation(dict, maxLen, sentence_source, match_word):
     meet=False;
     while((not meet) and (len(word)>0)):
       ## log
-      #print >> logfile, process_word
       print '                         ++> word : ' + process_word
+      print >> log, '                         ++> word : ' + process_word
       ## end log
       if(process_word in dict):
         ## log
-        #print >> logfile, 'match dict :', process_word, process_word in dict
         if process_word in dict : 
           print '  ++> match dict : ' + process_word
           print '  ++> for word : ' + match_word
+          print >> log, '  ++> match dict : ' + process_word
+          print >> log, '  ++> for word : ' + match_word
         ## end log
         cur_score = get_word_segmentation_score(word, match_word)
         if cur_score > score:
@@ -59,10 +61,12 @@ def get_score(sentences, dict, seg_max_width, k):
   for i in xrange(len(sentences)):
     ## log
     print ' -> start process ' + str(i) +' sentence, total is ' + str(len(sentences))
+    print >> log, ' -> start process ' + str(i) +' sentence, total is ' + str(len(sentences))
     ## end log
     cur_score = segmentation(dict, seg_max_width, sentences[i], k)
     ## log
     print ' -> score of sen is ' + str( cur_score)
+    print >> log, ' -> score of sen is ' + str( cur_score)
     ## end log
     if cur_score > result: 
       result = cur_score
