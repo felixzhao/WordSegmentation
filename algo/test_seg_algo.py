@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*- 
 
 from GetTopWordSegmentationScore import get_top_score
 
@@ -60,9 +61,9 @@ if __name__ == '__main__':
   out_file = open(out_path, 'w')
   
   top_score = {}
-  unks = {}
+  unks = []
   cands = {}
-  dict = {} ## to do, get from prof source file.
+  dict = []
   sentence_split_len = 6
   seg_max_width = 4 
   beam_width = 5

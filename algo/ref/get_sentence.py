@@ -14,9 +14,9 @@ def get_sentence(d_u, k, len):
   result = [] ## a list of string, each word split by space
 
   ## log
-  print >> log, ' doc of u type: ', type(d_u),
-  print >> log, ' the first line of doc u: ', d_u[0],
-  print >> log, ' k : ', k,
+  print >> log, ' doc of u type: ', type(d_u)
+  print >> log, ' the first line of doc u: ', d_u[0]
+  print >> log, ' k : ', k
   print >> log, ' len : ', len
   ## end log
   
@@ -36,7 +36,13 @@ def get_sentence(d_u, k, len):
       if index - len < 1:
         s = 0
       terms = line[s: e]
+      ## log
+      print >> log, 'sub line : ', line[s: e]
+      ## end log
       result.append(' '.join(terms))
+      ## log
+      print >> log, 'result : ',' '.join(terms)
+      ## end log
     
   ## end try
   return result

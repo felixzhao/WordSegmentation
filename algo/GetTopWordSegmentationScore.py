@@ -6,7 +6,7 @@ from ref.get_sentence import get_sentence
 from ref.get_top_n_score import get_top_n_score
 from check_word_in_dict import checkdict
 
-log = open('log/log_get_top_word_segmentation_score.py','w')
+log = open('log/log_get_top_word_segmentation_score.txt','w')
 
 '''
     test_text = string
