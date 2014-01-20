@@ -74,9 +74,12 @@ def  process_in_s(sentence, W_dict, C_dict):
                 print ' no match, end algo. '
                 break
             else: ## | inter words | > 0
-                for inter in inter_list:
-                    cur_sentence = update_sentence(sentence, inter, i)
-                    result += process_in_s(cur_sentence[i:],dict, C_dict)
+                cur_sentence = update_sentence(sentence, inter_list, i)
+                for c_s in cur_sentence:
+                    print ' >> cur sentence : ' , c_s
+                    print ' >> i : ', i
+                    print ' >> cur sentence start from i : ' , c_s[i:]
+                    result += process_in_s(c_s[i:],W_dict, C_dict)
                 break
     return result
 
