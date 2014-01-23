@@ -23,7 +23,7 @@ def process_in_s(sentence, pos, W_dict, C_dict):
         w_d = []
         for w in W_dict:
             if len(w) > i:
-                w_d.append(w[i])
+            w_d.append(w[i])
         print >> log, '2> chars at i positon in word dict : ', w_d
         
 ## if no word at i position in dict match current process char then next sentence

@@ -1,7 +1,6 @@
 from Queue import * 
-import datetime
 
-log = open('log\left_process_5'+ str(datetime.datetime.now()).replace(' ','_').replace(':','_') +'.txt','w')
+log = open('log\left_process_5.txt','w')
 
 def process_in_s(sentence, pos, W_dict, C_dict):
     result = 0
@@ -11,6 +10,11 @@ def process_in_s(sentence, pos, W_dict, C_dict):
     
     unk_flag = 'u'
     
+    #q = Queue()
+    #q.put(sentence)
+    
+    #while q.empty() == False :
+        #cur_s = q.get()
     cur_s = sentence
     print >> log, '='*50
     print >> log, '1> process sentence : ', cur_s
@@ -22,8 +26,7 @@ def process_in_s(sentence, pos, W_dict, C_dict):
 ## get chars which in all words in dict i position
         w_d = []
         for w in W_dict:
-            if len(w) > i:
-                w_d.append(w[i])
+            w_d.append(w[i])
         print >> log, '2> chars at i positon in word dict : ', w_d
         
 ## if no word at i position in dict match current process char then next sentence
@@ -50,7 +53,7 @@ def process_in_s(sentence, pos, W_dict, C_dict):
             w_s = C_dict[cur_s[i]]
             print >> log, '3> process word : ', cur_s[i]
             print >> log, '3> cands : ', w_s
-            inter_list = list(set(w_d) & set(w_s))
+            inter_list = list(set(w_d) & set(w_s))#get_intersection(words_in_dict, w_s)
             print >> log, '3> inters list : ', inter_list
             if len(inter_list) == 0:
                 print >> log, '==> no match, end algo. '
@@ -72,3 +75,15 @@ def process_in_s(sentence, pos, W_dict, C_dict):
     print >> log, '1> end of sentence process : ', cur_s, '\n'
     print >> log, '='*50
     return result
+
+if __name__ == '__main__':
+    s = 'a u1 k'.split()
+    W_d = ['abk','cde']
+    C_d = {'u1':['b']}
+    Expected = 3
+    Actual = process_in_s(s, 0, W_d, C_d)
+    print >> log, Actual
+    print >> log, Actual == Expected
+    
+    print Actual
+    print Actual == Expected
